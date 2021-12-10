@@ -1,0 +1,4 @@
+name: azure-wasp-bootstrap
+terraform:
+  version: 1.0.11
+  backend: azurerm
