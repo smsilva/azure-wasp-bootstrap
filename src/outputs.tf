@@ -1,3 +1,7 @@
-output "resource_group_id" {
-  value = azurerm_resource_group.default.id
+output "instance_resource_group_id" {
+  value = module.instance.resource_group.id
+}
+
+output "regions" {
+  value = module.regions
 }

@@ -1,21 +1,30 @@
-resource "random_string" "instance_id" {
-  keepers = {
-    cluster_name = var.cluster_name
-  }
+module "instance" {
+  source = "./region"
 
-  length      = 3
-  min_lower   = 1
-  min_numeric = 2
-  lower       = true
-  special     = false
+  name                  = var.name
+  region                = var.region
+  administrator_id_list = var.administrator_id_list
+  tags                  = var.tags
 }
 
 locals {
-  environment_name     = "wasp-bootstrap-${random_string.default.result}"
-  environment_location = "eastus2"
+  regions = {
+    "eus2" = {
+      region = "eastus2"
+    }
+    "ceus" = {
+      region = "centralus"
+    }
+  }
 }
 
-resource "azurerm_resource_group" "default" {
-  name     = local.environment_name
-  location = local.environment_location
+module "regions" {
+  for_each = local.regions
+
+  source = "./region"
+
+  name                  = "${var.name}-${each.key}"
+  region                = each.value.region
+  administrator_id_list = var.administrator_id_list
+  tags                  = var.tags
 }

@@ -1,6 +1,6 @@
 variable "name" {
   type    = string
-  default = "wasp-sbx-na"
+  default = "wasp-na-sbx"
 }
 
 variable "region" {
