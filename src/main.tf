@@ -1,12 +1,3 @@
-module "instance" {
-  source = "./region"
-
-  name                  = var.name
-  region                = var.region
-  administrator_id_list = var.administrator_id_list
-  tags                  = var.tags
-}
-
 locals {
   regions = {
     "eus2" = {
@@ -16,6 +7,15 @@ locals {
       region = "centralus"
     }
   }
+}
+
+module "environment" {
+  source = "./region"
+
+  name                  = var.name
+  region                = var.region
+  administrator_id_list = var.administrator_id_list
+  tags                  = var.tags
 }
 
 module "regions" {
